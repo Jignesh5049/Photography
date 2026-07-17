@@ -1,65 +1,108 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
+import Preloader from "@/components/sections/Preloader";
+import Header from "@/components/layout/Header";
+import Hero from "@/components/sections/Hero";
+import Gallery from "@/components/sections/Gallery";
+import Videos from "@/components/sections/Videos";
+import About from "@/components/sections/About";
+import Footer from "@/components/layout/Footer";
+import { personalInfo } from "@/data/portfolioData";
+import { motion, useScroll } from "framer-motion";
+
+// Custom inline SVG icons for brands
+const InstagramIcon = ({ size = 18 }: { size?: number }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+  </svg>
+);
+
+const YoutubeIcon = ({ size = 18 }: { size?: number }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.56 49.56 0 0 1-16.2 0A2 2 0 0 1 2.5 17z" />
+    <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" />
+  </svg>
+);
 
 export default function Home() {
+  const [loadingComplete, setLoadingComplete] = useState(false);
+  const { scrollYProgress } = useScroll();
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <>
+      {/* 1. Cinematic Loading Screen */}
+      <Preloader onComplete={() => setLoadingComplete(true)} />
+
+      {loadingComplete && (
+        <div className="flex flex-col min-h-screen bg-bg-primary text-text-light relative">
+          
+          {/* Reading progress bar */}
+          <motion.div
+            style={{ scaleX: scrollYProgress }}
+            className="fixed top-0 left-0 right-0 h-[3px] bg-accent-gold origin-left z-[1000] pointer-events-none"
+          />
+
+          {/* Global Header */}
+          <Header />
+
+          {/* 2. Floating Social Bar (Desktop only) */}
+          <div className="fixed left-6 bottom-12 z-50 hidden xl:flex flex-col items-center gap-6">
+            <div className="flex flex-col gap-4 text-text-muted">
+              <a
+                href={personalInfo.socialLinks.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-accent-gold transition-colors duration-300 hover:scale-110"
+                aria-label="Instagram Link"
+              >
+                <InstagramIcon size={18} />
+              </a>
+              <a
+                href={personalInfo.socialLinks.youtube}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-accent-gold transition-colors duration-300 hover:scale-110"
+                aria-label="YouTube Link"
+              >
+                <YoutubeIcon size={18} />
+              </a>
+            </div>
+            {/* Elegant vertical line anchor */}
+            <div className="w-[1px] h-20 bg-white/20 mt-2" />
+          </div>
+
+          {/* Main Content Sections */}
+          <main className="flex-1">
+            <Hero />
+            <Gallery />
+            <Videos />
+            <About />
+          </main>
+          <Footer />
+
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      )}
+    </>
   );
 }
