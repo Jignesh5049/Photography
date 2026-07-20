@@ -27,11 +27,11 @@ export const metadata: Metadata = {
     shortcut: "/favicon.ico",
     apple: "/apple-touch-icon.png",
   },
-  metadataBase: new URL("http://localhost:3000"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://jignesh-photofolio.vercel.app"),
   openGraph: {
     title: "Jignesh Prajapati | Mobile Photography Portfolio",
     description: "Explore the mobile photography showcases, city street scenes, and nature highlights of Jignesh Prajapati.",
-    url: "http://localhost:3000",
+    url: "https://jignesh-photofolio.vercel.app",
     siteName: "JP Portfolio",
     images: [
       {

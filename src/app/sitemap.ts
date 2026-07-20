@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { projects, categories } from "@/data/portfolioData";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://jigneshprajapati.vercel.app";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://jignesh-photofolio.vercel.app";
 
   // Static core routes
   const staticUrls: MetadataRoute.Sitemap = [
