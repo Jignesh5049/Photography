@@ -19,6 +19,14 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   title: "Jignesh Prajapati | Mobile Photography Portfolio",
   description: "Personal photography showcase capturing landscapes, streetscapes, and daily moments with Samsung Galaxy S21 FE & S24 Ultra.",
+  icons: {
+    icon: [
+      { url: "/icon.png" },
+      { url: "/favicon.ico" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
   metadataBase: new URL("http://localhost:3000"),
   openGraph: {
     title: "Jignesh Prajapati | Mobile Photography Portfolio",
