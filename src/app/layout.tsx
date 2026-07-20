@@ -42,6 +42,9 @@ export const metadata: Metadata = {
     description: "Personal mobile photography captures and cinematic reels by Jignesh Prajapati.",
     images: ["/photos/WhatsApp%20Image%202026-07-16%20at%205.59.35%20PM.jpeg"],
   },
+  verification: {
+    google: "google5f0fd429c7e0fd9d",
+  },
 };
 
 export default function RootLayout({
